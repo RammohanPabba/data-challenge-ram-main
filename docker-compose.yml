@@ -1,0 +1,26 @@
+version: '3.8'
+
+x-database-env:
+  &database-env
+  DATABASE_HOST: 127.0.0.1
+  POSTGRES_USER: payments
+  POSTGRES_PASSWORD: payments123
+  POSTGRES_DB: data_pipeline
+
+services:
+  database:
+    image: postgres:16.0
+    container_name: database
+    command: postgres -p 5432 -c max_connections=1000
+    volumes:
+      - postgres-data-16:/var/lib/postgresql/data/
+    ports:
+      - '5432:5432'
+    restart: always
+    environment: *database-env
+
+volumes:
+  postgres-data-16: null
+
+networks:
+  payments_network: null
