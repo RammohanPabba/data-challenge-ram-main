@@ -19,13 +19,8 @@ def main():
         df['file_name']=file_name_only
         master_df = pd.concat([master_df, df])
         result_df = master_df[master_df['transaction_status'] == 'Success']
-        result_df.to_csv('filtered_records.csv')
-
-    #columns = df.columns
-    #print(columns)
-    #print(df['transaction_id']+"---"+df['transaction_status']+"---"+df['merchant_id'])
-    #print("******************************after filtering******************************")
-    #print(result_df['transaction_id']+"---"+result_df['transaction_status']+"---"+result_df['merchant_id'])
+        result_df.to_parquet('filtered_records.parquet', engine='fastparquet')
+        #result_df.to_csv('filtered_records_csv.csv')
 
 if __name__ == "__main__":
     main()
